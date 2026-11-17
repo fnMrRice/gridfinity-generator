@@ -1,0 +1,79 @@
+Gridfinity 独立模块与命令行
+
+在本目录打开终端。将下面的python替换为本机Python命令即可：
+当前工作区也可直接使用“生成底板.cmd”“生成电池盒.cmd”和“生成收纳盒.cmd”，无需配置Python路径。
+
+底板模块
+python -m gridfinity.baseplate --length 450 --width 320 --height 5 --max-x 240 --max-y 240
+
+电池盒模块（行列数指Grid数）
+python -m gridfinity.battery --columns 2 --rows 2 --battery AA --packing dense
+python -m gridfinity.battery --columns 3 --rows 2 --battery AAA --packing regular --seat-depth 13.4
+
+通用收纳盒模块（无内部隔板，可堆叠）
+python -m gridfinity.bin --columns 2 --rows 3 --height-u 6
+python -m gridfinity.bin --columns 2 --rows 3 --height-u 6 --hollow
+python -m gridfinity.bin --columns 2 --rows 2 --height-u 8 --hollow --wall 1.6 --bottom 1.6 --opening 12 --rib 2.4
+--hollow 开启侧壁菱形孔；--no-hollow 使用完整侧壁。底面始终保留。
+高度U为包含底脚的本体高度，每U=7mm；堆叠边另加3.8mm。6U总高45.8mm。
+--bottom 指底脚连接面Z=4.75mm以上的底厚；--opening 是菱形孔最大宽度，矮盒自动缩孔或不切孔。
+--rib 为孔间最小肋宽和上下框宽；四角至少保留5mm。小物件可能从侧孔掉出。
+--max-x / --max-y / --max-z 可调打印长宽高上限，默认240×240×256mm；盒体整体打印。
+
+Windows快捷入口
+.\生成底板.cmd --length 450 --width 320 --max-x 240 --max-y 240
+.\生成电池盒.cmd --columns 2 --rows 2 --battery AA --packing dense
+.\生成收纳盒.cmd --columns 2 --rows 3 --height-u 6 --hollow
+
+自定义圆柱电池
+python -m gridfinity.battery --columns 2 --rows 2 --battery Custom --custom-shape round --custom-a 18.8 --custom-height 68
+
+自定义方形电池
+python -m gridfinity.battery --columns 3 --rows 1 --battery Custom --custom-shape rect --custom-a 22 --custom-b 12 --custom-height 32
+
+常用选项
+--help                 查看该模块的全部参数和默认值。
+--plan-only            只计算布局/容量，向stdout输出JSON，不调用OpenSCAD。
+--source-only          只生成SCAD源码和布局文件，不调用OpenSCAD。
+--no-preview           正常生成STL，跳过PNG渲染，适合无桌面环境。
+--output 路径          指定新输出目录；已有目录不覆盖。
+--settings 配置.json   读取参数JSON，显式命令行参数优先于JSON。
+--save-settings 路径   保存最终生效的全部参数JSON。
+--json                 生成后向stdout输出输出目录和主SCAD文件路径。
+--quiet                关闭stderr中的进度信息。
+--openscad 路径        指定OpenSCAD可执行文件；也支持GRIDFINITY_OPENSCAD环境变量。
+--no-align-height      电池盒不按7mm单位取整；默认启用整高。
+--list-presets         电池模块输出所有预设JSON。
+
+命令行自动化示例
+python -m gridfinity.battery --columns 2 --rows 2 --battery AA --plan-only
+python -m gridfinity.battery --settings config.json --columns 3 --source-only --output out\aa --json
+python -m gridfinity.baseplate --length 450 --width 320 --no-preview --output out\plate --json
+
+JSON参数名使用下划线，例如max_x、battery_type、seat_depth。
+--plan-only始终输出UTF-8 JSON；生成时进度写入stderr，结果写入stdout。
+退出码：0成功；2参数或配置错误；1生成/文件错误。
+命令行不载入Tkinter，也不更改GUI“最近输出”记录。
+
+Python API
+from gridfinity import baseplate, battery, bin
+cfg = baseplate.settings_from({"length": 450, "width": 320, "max_x": 240, "max_y": 240})
+layout = baseplate.plan(cfg)
+folder, source = baseplate.generate(cfg, source_only=True)
+cfg = battery.settings_from({"columns": 2, "rows": 2, "battery_type": "AA", "packing": "dense"})
+layout = battery.plan(cfg)
+folder, source = battery.generate(cfg, preview=False)
+cfg = bin.settings_from({"columns": 2, "rows": 3, "height_u": 6, "hollow": True})
+layout = bin.plan(cfg)
+folder, source = bin.generate(cfg, preview=False)
+
+模块结构
+gridfinity/baseplate.py  底板参数、分块、榫槽与源码生成、CLI入口。
+gridfinity/battery.py    电池预设、参数、容量计算、中空堆叠盒生成、CLI入口。
+gridfinity/bin.py        通用盒参数、菱形侧孔、堆叠盒生成、CLI入口。
+gridfinity/cli.py        共享参数定义、类型转换、JSON与命令行处理。
+gridfinity/shared.py     共享OpenSCAD调用、资源路径与输出管理。
+gridfinity/mesh.py       共享STL几何验证。
+app_scad.py              Tkinter界面，直接调用上述模块的参数和生成函数。
+
+GUI继续通过“启动生成器.cmd”启动。旧导入文件仅保留兼容转发，没有第二套生成逻辑。

@@ -1,0 +1,36 @@
+# Python and local editor/runtime state
+__pycache__/
+*.py[cod]
+/.venv/
+/.idea/
+/.vscode/
+/.codex/
+/.agents/
+.env
+.env.*
+!.env.example
+
+# Generated models, logs and machine-specific GUI state
+/OpenSCAD输出/
+/输出/
+/scad/*.STL
+/scad_*_settings.json
+/scad_outputs.json
+/scad_final_result.json
+/latest_output.json
+/scad_last_error.txt
+*.log
+
+# Local CAD probes and one-off verification scripts
+/_*/
+/_*.py
+
+# Retained locally for the old SolidWorks workflow
+/app.py
+/geometry.py
+/solidworks_builder.py
+/mesh_verify.py
+/使用说明_旧SW.txt
+
+# Optional local OpenSCAD runtime
+/tools/

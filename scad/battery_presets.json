@@ -1,0 +1,90 @@
+{
+  "AA": {
+    "label": "AA / 5号",
+    "shape": "round",
+    "a": 14.5,
+    "b": 14.5,
+    "height": 50.5,
+    "source": "https://energizer.com/apac/china/wp-content/uploads/sites/18/2024/05/e91_max_na_AA.pdf"
+  },
+  "AAA": {
+    "label": "AAA / 7号",
+    "shape": "round",
+    "a": 10.5,
+    "b": 10.5,
+    "height": 44.5,
+    "source": "https://data.energizer.com/pdfs/E92_Max_EU.pdf"
+  },
+  "C": {
+    "label": "C / 2号",
+    "shape": "round",
+    "a": 26.2,
+    "b": 26.2,
+    "height": 50.0,
+    "source": "https://data.energizer.com/pdfs/e93_ap.pdf"
+  },
+  "D": {
+    "label": "D / 1号",
+    "shape": "round",
+    "a": 34.2,
+    "b": 34.2,
+    "height": 61.5,
+    "source": "https://data.energizer.com/pdfs/EP95_Max_Plus_AP.pdf"
+  },
+  "LR9": {
+    "label": "LR9 / 625A 纽扣",
+    "shape": "round",
+    "a": 16.0,
+    "b": 16.0,
+    "height": 6.2,
+    "source": "https://www.varta-ag.com/fileadmin/varta/consumer/downloads/general-catalogue/en/9018212241_EN_GC_AW2025-26_v01_SS-LQ_w-o-SHD.pdf"
+  },
+  "LR44": {
+    "label": "LR44 / A76 纽扣",
+    "shape": "round",
+    "a": 11.6,
+    "b": 11.6,
+    "height": 5.4,
+    "source": "https://www.varta-ag.com/fileadmin/varta/consumer/downloads/general-catalogue/en/9018212241_EN_GC_AW2025-26_v01_SS-LQ_w-o-SHD.pdf"
+  },
+  "CR2032": {
+    "label": "CR2032 纽扣",
+    "shape": "round",
+    "a": 20.0,
+    "b": 20.0,
+    "height": 3.2,
+    "source": "https://data.energizer.com/pdfs/cr2032_eu.pdf"
+  },
+  "CR123A": {
+    "label": "CR123A",
+    "shape": "round",
+    "a": 17.0,
+    "b": 17.0,
+    "height": 34.5,
+    "source": "https://data.energizer.com/pdfs/123.pdf"
+  },
+  "18650": {
+    "label": "18650（平头参考）",
+    "shape": "round",
+    "a": 18.6,
+    "b": 18.6,
+    "height": 65.2,
+    "source": "https://www.molicel.com/product/inr-18650-p28a/"
+  },
+  "21700": {
+    "label": "21700（平头参考）",
+    "shape": "round",
+    "a": 21.6,
+    "b": 21.6,
+    "height": 70.2,
+    "source": "https://www.molicel.com/product/inr-21700-p45b/"
+  },
+  "9V": {
+    "label": "9V / 6F22 方块",
+    "shape": "rect",
+    "a": 26.5,
+    "b": 17.5,
+    "height": 48.5,
+    "source": "https://data.energizer.com/pdfs/6f22hd_eu.pdf"
+  }
+}
